@@ -18,7 +18,7 @@ class _ViewTaskPageState extends State<ViewTaskPage> {
         child: Icon(Icons.add),
         onPressed: () {},
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 }

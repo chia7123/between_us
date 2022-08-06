@@ -2,10 +2,12 @@ import 'package:between_us/pages/completed_task_page.dart';
 import 'package:between_us/pages/home_page.dart';
 import 'package:between_us/pages/redeem_page.dart';
 import 'package:between_us/pages/task_page.dart';
+import 'package:between_us/provider/google_sign_in.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NavigationControllerPage extends StatefulWidget {
   NavigationControllerPage({super.key});
@@ -42,7 +44,6 @@ class _NavigationControllerPageState extends State<NavigationControllerPage> {
 
   @override
   Widget build(BuildContext context) {
-    Color? selectedColor = tabItems[selectedPos].circleColor;
     Widget page = HomePage();
     switch (selectedPos) {
       case 0:
@@ -68,17 +69,19 @@ class _NavigationControllerPageState extends State<NavigationControllerPage> {
         // backgroundColor: Colors.transparent,
         title: const Text('Between Us'),
         centerTitle: true,
-        elevation: 0,
-      ),
-      body: Stack(
-        children: [
-          page,
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: bottomNav(),
-          // ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              final provider =
+                  Provider.of<GoogleSignInProvider>(context, listen: false);
+              provider.logout();
+            },
+            icon: const Icon(Icons.logout),
+          )
         ],
-      ),bottomNavigationBar: bottomNav(),
+      ),
+      body: page,
+      bottomNavigationBar: bottomNav(),
     );
   }
 
@@ -87,7 +90,7 @@ class _NavigationControllerPageState extends State<NavigationControllerPage> {
       tabItems,
       controller: _navigationController,
       selectedPos: selectedPos,
-      barHeight: 60,
+      barHeight: 55,
       barBackgroundColor: Colors.white,
       backgroundBoxShadow: const <BoxShadow>[
         BoxShadow(color: Colors.black45, blurRadius: 10.0),
