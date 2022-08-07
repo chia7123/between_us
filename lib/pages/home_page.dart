@@ -1,6 +1,8 @@
+import 'package:between_us/widgets/unpaired.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
       'name': userInfo.displayName,
       'email': userInfo.email,
       'photoUrl': userInfo.photoURL,
+      'pairCode': userInfo.uid.substring(userInfo.uid.length - 6).toUpperCase(),
       'connected': false,
       'connectedId': null,
       'points': 0,
@@ -46,8 +49,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(userInfo);
-
     return StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('users')
@@ -57,55 +58,21 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator.adaptive();
           } else {
-            final data = snapshot.data!.data();
-            return Column(
-              children: [
-                Container(
-                  height: 250,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height: 200,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: Colors.black45, blurRadius: 15.0),
-                            ],
-                          ),
-                          child: LayoutBuilder(builder: (BuildContext context,
-                              BoxConstraints constraints) {
-                            return Stack(
-                              alignment: AlignmentDirectional.center,
-                              children: [
-                                Positioned(
-                                  top: 70,
-                                  child: Text(
-                                    data?['name'],
-                                  ),
-                                ),
-                              ],
-                            );
-                          }),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(data?['photoUrl']),
-                          radius: 50,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            );
+            if (snapshot.data!.exists) {
+              final data = snapshot.data!.data();
+              return data?['connected']
+                  ? const Center(
+                      child: Text('connected'),
+                    )
+                  : UnpairedWidget(
+                      data: data,
+                    );
+              // return UnpairedWidget(data: data);
+            } else {
+              return const Center(
+                child: Text('Something went wrong'),
+              );
+            }
           }
         });
   }
