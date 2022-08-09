@@ -34,8 +34,9 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Colors.pink[400],
+            primary: Color.fromARGB(255, 252, 179, 248),
           ),
+         
           textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
             bodyText1: GoogleFonts.oswald(textStyle: textTheme.bodyText1),
           ),
@@ -52,7 +53,7 @@ class _MyAppState extends State<MyApp> {
                 child: Text("Something went wrong!"),
               );
             } else {
-              return FirstPage();
+              return const FirstPage();
             }
           },
         ),

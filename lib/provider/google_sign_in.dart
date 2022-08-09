@@ -25,20 +25,13 @@ class GoogleSignInProvider extends ChangeNotifier {
 
       Fluttertoast.showToast(
         msg: 'Successfully Sign In.',
-        backgroundColor: Colors.grey[900],
-        toastLength: Toast.LENGTH_LONG,
-        timeInSecForIosWeb: 3,
       );
 
       notifyListeners();
-
     } catch (e) {
       print(e);
       Fluttertoast.showToast(
         msg: e.toString(),
-        backgroundColor: Colors.grey[900],
-        toastLength: Toast.LENGTH_LONG,
-        timeInSecForIosWeb: 3,
       );
     }
   }
@@ -47,10 +40,10 @@ class GoogleSignInProvider extends ChangeNotifier {
     await googleSignIn.disconnect();
     await FirebaseAuth.instance.signOut();
     Fluttertoast.showToast(
-        msg: 'Successfully Logout.',
-        backgroundColor: Colors.grey[900],
-        toastLength: Toast.LENGTH_LONG,
-        timeInSecForIosWeb: 3,
-      );
+      msg: 'Successfully Logout.',
+      backgroundColor: Colors.grey[800],
+      toastLength: Toast.LENGTH_LONG,
+      timeInSecForIosWeb: 3,
+    );
   }
 }

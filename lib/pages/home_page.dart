@@ -1,4 +1,5 @@
-import 'package:between_us/widgets/unpaired.dart';
+import 'package:between_us/pages/paired_profile.dart';
+import 'package:between_us/widgets/unpaired_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ class _HomePageState extends State<HomePage> {
       'connected': false,
       'connectedId': null,
       'points': 0,
+      'gender': 'unknown',
+      'dob': '',
     };
 
     await FirebaseFirestore.instance
@@ -61,13 +64,12 @@ class _HomePageState extends State<HomePage> {
             if (snapshot.data!.exists) {
               final data = snapshot.data!.data();
               return data?['connected']
-                  ? const Center(
-                      child: Text('connected'),
+                  ? PairedProfilePage(
+                      data: data,
                     )
-                  : UnpairedWidget(
+                  : UnpairedProfileCard(
                       data: data,
                     );
-              // return UnpairedWidget(data: data);
             } else {
               return const Center(
                 child: Text('Something went wrong'),

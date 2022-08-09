@@ -1,29 +1,28 @@
+import 'package:between_us/widgets/circular_profile_image.dart';
 import 'package:between_us/widgets/enter_code_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class UnpairedWidget extends StatefulWidget {
-  const UnpairedWidget({super.key, this.data});
+class UnpairedProfileCard extends StatefulWidget {
+  const UnpairedProfileCard({super.key, this.data});
 
   final data;
 
   @override
-  State<UnpairedWidget> createState() => _UnpairedWidgetState();
+  State<UnpairedProfileCard> createState() => _UnpairedProfileCardState();
 }
 
-class _UnpairedWidgetState extends State<UnpairedWidget> {
+class _UnpairedProfileCardState extends State<UnpairedProfileCard> {
+  showDialogBox() {
+    showDialog(context: context, builder: (_) => const EnterCodeDialog());
+  }
+
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  showDialogBox() {
-    showDialog(context: context, builder: (_) => const EnterCodeDialog());
   }
 
   @override
@@ -52,7 +51,7 @@ class _UnpairedWidgetState extends State<UnpairedWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Spacer(
-                        flex: 3,
+                        flex: 7,
                       ),
                       Text(
                         widget.data['name'],
@@ -87,14 +86,33 @@ class _UnpairedWidgetState extends State<UnpairedWidget> {
                           ),
                           const Spacer(),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               const Text(
-                                'Pair Code : ',
+                                'Pair Code :  ',
                               ),
                               Text(
                                 '${widget.data['pairCode']}',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
+                              ),
+                              IconButton(
+                                onPressed: () async {
+                                  await Clipboard.setData(
+                                    ClipboardData(
+                                        text: '${widget.data['pairCode']}'),
+                                  );
+                                  Fluttertoast.showToast(
+                                    msg: 'Pair Code Copied.',
+                                    backgroundColor: Colors.grey[800],
+                                    toastLength: Toast.LENGTH_LONG,
+                                    timeInSecForIosWeb: 2,
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.copy,
+                                  size: 18,
+                                ),
                               ),
                             ],
                           ),
@@ -126,11 +144,8 @@ class _UnpairedWidgetState extends State<UnpairedWidget> {
             ),
             Align(
               alignment: Alignment.topCenter,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(widget.data['photoUrl']),
-                radius: 50,
-              ),
-            )
+              child: CircularProfileImage(photoUrl: widget.data['photoUrl']),
+            ),
           ],
         ),
       ),

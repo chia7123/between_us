@@ -5,7 +5,6 @@ import 'package:between_us/pages/task_page.dart';
 import 'package:between_us/provider/google_sign_in.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,13 +17,12 @@ class NavigationControllerPage extends StatefulWidget {
 }
 
 class _NavigationControllerPageState extends State<NavigationControllerPage> {
-  CollectionReference Fdata = FirebaseFirestore.instance.collection('data');
   int selectedPos = 0;
 
   List<TabItem> tabItems = List.of([
     TabItem(Icons.home, "Home", Colors.pink[400]!),
     TabItem(Icons.article_outlined, "Task", Colors.pink[400]!),
-    TabItem(Icons.card_giftcard_outlined, "Redeem", Colors.pink[400]!),
+    TabItem(Icons.store, "Redeem", Colors.pink[400]!),
     TabItem(Icons.history, "History", Colors.pink[400]!),
   ]);
 
@@ -32,6 +30,7 @@ class _NavigationControllerPageState extends State<NavigationControllerPage> {
 
   @override
   void initState() {
+    
     super.initState();
     _navigationController = CircularBottomNavigationController(selectedPos);
   }
@@ -66,7 +65,8 @@ class _NavigationControllerPageState extends State<NavigationControllerPage> {
 
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.transparent,
+        elevation: 3,
+        toolbarHeight: 50,
         title: const Text('Between Us'),
         centerTitle: true,
         actions: [
@@ -104,14 +104,5 @@ class _NavigationControllerPageState extends State<NavigationControllerPage> {
       },
     );
   }
-
-  saveData() {
-    var data = 'data';
-
-    return Fdata.add({
-      'data': data, // John Doe
-    })
-        .then((value) => print("data Added"))
-        .catchError((error) => print("Failed to add data: $error"));
-  }
+ 
 }
