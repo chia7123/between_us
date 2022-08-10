@@ -12,7 +12,6 @@ class RedeemPage extends StatefulWidget {
 class _RedeemPageState extends State<RedeemPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('redeem page')
-    );
+    return Center(child: Text('redeem page'));
   }
 }
