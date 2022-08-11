@@ -91,9 +91,8 @@ class _AnniversaryCardState extends State<AnniversaryCard> {
             return Card(
               margin: const EdgeInsets.all(12),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
+                  borderRadius: BorderRadius.circular(8)),
               child: Container(
-                height: 106,
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(12),
                 child: Column(
@@ -105,12 +104,12 @@ class _AnniversaryCardState extends State<AnniversaryCard> {
                           WidgetSpan(
                             child: FaIcon(
                               FontAwesomeIcons.calendarDay,
-                              size: 18,
+                              size: 18,color: Color.fromARGB(255, 255, 45, 245),
                             ),
                           ),
                           TextSpan(
-                            text: '    Anniversary Date',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            text: '   Anniversary Date',
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
                           ),
                         ]),
                       ),
@@ -131,8 +130,28 @@ class _AnniversaryCardState extends State<AnniversaryCard> {
                             icon: const FaIcon(
                                 FontAwesomeIcons.solidCalendarDays),
                           )
-                        : Text(
-                            '${widget.userData['name']} and ${widget.partnerData['name']} has been together ${data['totalDays']} days.')
+                        : Text.rich(
+                            TextSpan(children: [
+                              TextSpan(
+                                text: '${widget.userData['name']}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const TextSpan(text: ' and '),
+                              TextSpan(
+                                text: '${widget.partnerData['name']}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const TextSpan(text: ' has been together '),
+                              TextSpan(
+                                text: '${data['totalDays']}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const TextSpan(text: ' days.'),
+                            ]),
+                          ),
                   ],
                 ),
               ),

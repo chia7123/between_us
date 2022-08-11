@@ -32,8 +32,8 @@ class _BirthdayButtonState extends State<BirthdayButton> {
           await userInfo.doc(widget.uid).update({'dob': pickedDate});
           Fluttertoast.showToast(msg: 'Birthday Set.');
         });
-        return;
       }
+        return;
     });
   }
 

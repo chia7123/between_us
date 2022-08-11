@@ -1,5 +1,6 @@
 import 'package:between_us/widgets/anniversary_card.dart';
 import 'package:between_us/widgets/couple_info_card.dart';
+import 'package:between_us/widgets/score_point.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,14 @@ class _PairedProfilePageState extends State<PairedProfilePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                AnniversaryCard(userData: widget.data, partnerData: partnerData,),
+                AnniversaryCard(
+                  userData: widget.data,
+                  partnerData: partnerData,
+                ),
+                CouplePointCard(
+                  userData: widget.data,
+                  partnerData: partnerData,
+                ),
               ],
             );
           }
@@ -41,6 +49,4 @@ class _PairedProfilePageState extends State<PairedProfilePage> {
           );
         });
   }
-
-  
 }

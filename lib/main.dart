@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: Color.fromARGB(255, 252, 179, 248),
+            primary: const Color.fromARGB(255, 252, 179, 248),
           ),
          
           textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(

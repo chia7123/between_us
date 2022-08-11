@@ -14,7 +14,7 @@ class FirstPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Colors.pink[400],
+            color: Theme.of(context).colorScheme.primary,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
